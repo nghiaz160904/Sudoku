@@ -1,4 +1,5 @@
 import os, pygame
+from CNF import *
 pygame.init()
 
 # Set up the screen
@@ -13,12 +14,6 @@ map_file = os.path.join(MAP, f"map.txt")
 # Define some colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-
-class Map:
-    def __init__(self, rows, cols, data):
-        self.rows = rows
-        self.cols = cols
-        self.data = data
 
 def read_map(filename):
     try:
@@ -63,7 +58,13 @@ while running:
     # Draw the grid
     map_data = read_map(map_file)
     draw_grid(map_data)
-
+    solution = solve_sudoku(map_data)
+    if solution:
+        print("Sudoku Solution:")
+        for row in solution:
+            print(row)
+    else:
+        print("No solution found.")
     # Update the display
     pygame.display.update()
 
